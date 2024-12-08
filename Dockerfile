@@ -23,7 +23,8 @@ RUN apt-get update && apt-get install -y wget gcc perl make && \
     make install
 
 RUN rm openssl-1.0.2.tar.gz openssl-1.1.1.tar.gz openssl-3.0.0.tar.gz && \
-    rm -rf openssl-1.0.2 openssl-1.1.1 openssl-3.0.0
+    rm -rf openssl-1.0.2 openssl-1.1.1 openssl-3.0.0 && \
+    apt-get remove -y wget gcc perl make
 
 ENV PATH=/usr/local/ssl1.0/bin:$PATH
 
