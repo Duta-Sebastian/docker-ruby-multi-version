@@ -44,7 +44,7 @@ RUN apt-get update && \
 
 RUN source /usr/share/rvm/scripts/rvm && \
     for version in 2.3.8 2.4.10 2.5.9 2.6.10 2.7.8 3.0.7 3.1.6 3.2.6 3.3.6; do \
-        sleep 3 && \
+        sleep 10 && \
         if [[ "${version}" == "2.3.8" ]]; then \
             ( \
             export PATH=/usr/local/ssl1.0/bin:$PATH && \
@@ -68,7 +68,7 @@ RUN source /usr/share/rvm/scripts/rvm && \
 
 RUN source /usr/share/rvm/scripts/rvm && \
     for version in 2.3.8 2.4.10 2.5.9 2.6.10 2.7.8 3.0.7 3.1.6 3.2.6 3.3.6; do \
-        sleep 3 && \
+        sleep 10 && \
         if [[ "${version}" == "2.3.8" ]]; then \
             ( \
             export PATH=/usr/local/ssl1.0/bin:$PATH && \

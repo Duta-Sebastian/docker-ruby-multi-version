@@ -58,7 +58,7 @@ sequentially. This step avoids potential race conditions caused by attempting to
 run `apt-get update` from multiple processes simultaneously.
 
 ### Concurrent Ruby Installation
-The Ruby versions are iterated and installed in parallel, with a 3-second delay
+The Ruby versions are iterated and installed in parallel, with a 10-second delay
 between starting each process. This delay is introduced to mitigate race conditions
 arising from rvm accessing shared files during the installation process.
 
