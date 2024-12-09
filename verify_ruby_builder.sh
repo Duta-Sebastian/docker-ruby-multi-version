@@ -11,7 +11,7 @@ expected_outputs["2.5.9"]=$'Ruby version: 2.5.9\nBundler version: 2.3.27'
 expected_outputs["2.6.10"]=$'Ruby version: 2.6.10\nBundler version: 2.4.22'
 expected_outputs["2.7.8"]=$'Ruby version: 2.7.8\nBundler version: 2.4.22'
 expected_outputs["3.0.7"]=$'Ruby version: 3.0.7\nBundler version: 2.5.23'
-expected_outputs["3.1.6"]=$'Ruby version: 3.1.6\nBundler version: 2.3.27'
+expected_outputs["3.1.6"]=$'Ruby version: 3.1.6\nBundler version: 2.5.23'
 expected_outputs["3.2.6"]=$'Ruby version: 3.2.6\nBundler version: 2.5.23'
 expected_outputs["3.3.6"]=$'Ruby version: 3.3.6\nBundler version: 2.5.23'
 

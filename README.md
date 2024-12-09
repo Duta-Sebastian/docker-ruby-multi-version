@@ -1,19 +1,30 @@
 # Docker Ruby Multi-Version
 
-# Description
+# Table of Contents
+- [Description](#description)
+- [Prerequisites](#prerequisites)
+- [Project Information](#project-information)
+- [Dockerfile and Ruby Configuration](#dockerfile-and-ruby-configuration)
+- [Handling Ruby Compilation and Installation](#handling-ruby-compilation-and-installation)
+- [Limitations](#limitations)
+- [Tests](#tests)
+- [How to Build](#how-to-build)
 
-This project builds a docker image that contains the
-latest minor version for each major ruby version from
-2.3 to 3.3, inclusive. The rubies are managed by rvm.
+## Description
+
+This project builds a Docker image containing the latest minor versions of Ruby
+(2.3 to 3.3 inclusive), enabling seamless multi-version Ruby development and testing.
+The image uses `RVM` to manage Ruby installations, ensuring compatibility
+across diverse environments.
 
 ## Prerequisites
 - Docker
 
 ## Project Information
 - The docker image is build using a [Dockerfile](./Dockerfile)
-- The image is based on the docker image ubuntu:24.04
-- The built image occupies ~5 GB of storage space
-- The build time is ~10-15 minutes
+- The image is based on ubuntu:24.04.
+- The image size is approximately 5 GB.
+- Build time is around 10-15 minutes, depending on system performance.
 
 ## Dockerfile and ruby configuration
 As the rubies needed in this project cover a large range of versions,
@@ -36,10 +47,31 @@ using them to do http requests or similar.
 
 Each Ruby version uses the latest bundler version it supports, ensuring compatibility with Gemfiles and other dependencies.
 
+## Handling Ruby Compilation and Installation
+Since most Ruby versions in the given list are not available as precompiled binaries,
+nearly all of them must be compiled from source. The compilation process can be quite
+time-consuming, so tasks are executed concurrently to save time.
+
+### Dependency Installation
+Before starting the Ruby installations, all necessary dependencies are installed
+sequentially. This step avoids potential race conditions caused by attempting to
+run `apt-get update` from multiple processes simultaneously.
+
+### Concurrent Ruby Installation
+The Ruby versions are iterated and installed in parallel, with a 3-second delay
+between starting each process. This delay is introduced to mitigate race conditions
+arising from rvm accessing shared files during the installation process.
+
+### Installing Bundler
+After all Ruby versions are installed, the bundler gem is installed for
+each version using the same approach. By applying the same precautions
+during this step, the process avoids conflicts and ensures stability.
+
 ## Limitations
-As we are using 3 different `openssl` versions, some of which are discontinued (i.e 1.0 and 1.1), there can be situations in
-which a certain gem will not work. For example an app using the `http` gem will not work as it will try to 
-access websites without a valid certificate ( the app will execute, but it will have runtime errors ).
+Since this project uses three different openssl versions (1.0, 1.1, and 3.0), with 1.0 
+and 1.1 being deprecated,some gems may encounter issues. For instance, an application 
+using the http gem might attempt to access websites without valid certificates. 
+While the application will execute, it could result in runtime errors during such requests.
 
 ## Tests
 1. The first test written to ensure the solution successfully solves the given task is the
@@ -63,4 +95,10 @@ To build the image you have to the run command `docker build -t <image_name> .`.
 you can access create a container using the created image using `docker run -it <image_name>`. The build process will
 fail if the aforementioned tests fail.
 
-## 
+```bash
+# Build the Docker image
+docker build -t <image_name> .
+
+# Run a container
+docker run -it <image_name>
+```
