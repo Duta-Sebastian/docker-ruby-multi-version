@@ -9,6 +9,7 @@
 - [Limitations](#limitations)
 - [Tests](#tests)
 - [How to Build](#how-to-build)
+- [CI/CD and Docker Hub](#cicd-and-docker-hub)
 
 ## Description
 
