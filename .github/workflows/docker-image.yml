@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Tag the Docker image
         run: |
-          IMAGE_NAME="${{ secrets.DOCKER_USERNAME }}"/ruby-multi-version:latest
+          IMAGE_NAME="${{ secrets.DOCKER_USERNAME }}"/ruby-multi-version
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           docker tag ruby-multi-version:latest $IMAGE_NAME:latest
           docker tag ruby-multi-version:latest $IMAGE_NAME:$TIMESTAMP
