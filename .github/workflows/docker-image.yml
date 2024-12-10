@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,22 +21,16 @@ jobs:
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ruby-multi-version:latest
 
-  push:
-    runs-on: ubuntu-latest
-    needs: build
-    if: success()
-
-    steps:
       - name: Tag the Docker image
         run: |
-          IMAGE_NAME="${{ secrets.DOCKER_USERNAME }}"/ruby-multi-version
+          IMAGE_NAME="${{ secrets.DOCKER_USERNAME }}/ruby-multi-version"
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           docker tag ruby-multi-version:latest $IMAGE_NAME:latest
           docker tag ruby-multi-version:latest $IMAGE_NAME:$TIMESTAMP
 
       - name: Push the Docker image
         run: |
-          IMAGE_NAME="${{ secrets.DOCKER_USERNAME }}"/ruby-multi-version:latest
+          IMAGE_NAME="${{ secrets.DOCKER_USERNAME }}/ruby-multi-version"
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           docker push $IMAGE_NAME:latest
           docker push $IMAGE_NAME:$TIMESTAMP
