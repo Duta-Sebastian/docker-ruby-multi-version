@@ -102,3 +102,10 @@ docker build -t <image_name> .
 # Run a container
 docker run -it <image_name>
 ```
+
+## CI/CD and Docker Hub
+The Docker image is built automatically on every push to the repository and uploaded to
+[Docker hub](https://hub.docker.com/repository/docker/sebastian2309/ruby-multi-version/general). On every build it checks
+Before the image is pushed, the pipeline ensures that all requirements are met 
+by running the specified tests. If any test fails, the build is halted, 
+and the pipeline fails.
